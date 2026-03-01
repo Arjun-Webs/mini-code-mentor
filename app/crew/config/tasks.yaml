@@ -1,0 +1,88 @@
+explain_task:
+  description: |
+    Analyze the following {language} code. 
+    Code to explain:
+    {code}
+
+    Provide a clear, simple explanation tailored for a beginner. 
+    Break down what the code does step-by-step without using overly academic jargon.
+  expected_output: |
+    A structured, short explanation consisting of a 1-sentence summary, followed by a simple step-by-step breakdown of how the code works.
+  agent: explain_agent
+
+bug_task:
+  description: |
+    Analyze the following {language} code, find the bugs, and fix them.
+    {code}
+
+    CRITICAL RULES FOR YOUR OUTPUT:
+    1. You MUST return the ENTIRE script, including the function definition (e.g., `def name():`). Do not just return the changed loop.
+    2. You MUST strip out ALL comments. You are forbidden from using the `#` symbol or `//` to explain your fixes.
+    3. You MUST wrap your code in a markdown block, i.e. ```{language} ... ```.
+    4. No conversational text before or after the code.
+  expected_output: |
+    The complete, fully functioning source code from top to bottom, containing zero comments and wrapped in markdown formatting.
+  agent: bug_agent
+
+optimize_task:
+  description: |
+    Optimize this {language} code for better execution performance and structural readability:
+    {code}
+
+    CRITICAL INSTRUCTIONS:
+    - Improve the time/space efficiency if possible.
+    - Return ONLY the fully optimized source code.
+    - Do NOT output any conversational text.
+    - You MUST wrap the code in a markdown block, i.e. ```{language} ... ```.
+    - Do NOT include any explanations of your optimizations.
+  expected_output: |
+    A markdown code block containing only the fully optimized source code, completely devoid of conversational filler.
+  agent: optimize_agent
+
+testcase_task:
+  description: |
+    Generate exactly 5 test cases for the following {language} code:
+    {code}
+
+    Rules:
+    - Exactly 5 test cases.
+    - No explanations.
+    - No markdown.
+    - Plain text only.
+    - Strictly use this format:
+
+    Input: <input>
+    Expected Output: <output>
+
+    Separate each test case with one blank line.
+  expected_output: |
+    Plain text list of exactly 5 test cases in the required format.
+  agent: testcase_agent
+
+complexity_task:
+  description: |
+    Analyze the time and space complexity of the following {language} code:
+    {code}
+
+    CRITICAL INSTRUCTIONS:
+    Respond STRICTLY in the exact format below, with nothing else:
+    Time Complexity: O(?)
+    Space Complexity: O(?)
+  expected_output: |
+    Exactly two lines of text: the first stating the Time Complexity, the second stating the Space Complexity.
+  agent: complexity_agent
+
+learning_task:
+  description: |
+    Based on the concepts used in the following {language} code, create a targeted learning roadmap.
+    Code context:
+    {code}
+
+    CRITICAL INSTRUCTIONS:
+    1. Provide a step-by-step path detailing what the user should study to master these concepts.
+    2. You MUST use your search tool to find exactly ONE highly relevant, REAL YouTube video tutorial that teaches this specific {language} concept.
+    3. You MUST include the direct, clickable YouTube URL starting with "https://www.youtube.com/watch?v=".
+    4. You MUST wrap your final output to ensure any code examples are inside a markdown block.
+  expected_output: |
+    A structured roadmap featuring specific study steps, ending with a "Recommended Video" section that contains a real, verified YouTube URL and video title. Do not hallucinate URLs!
+  agent: learning_agent
